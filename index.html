@@ -1,0 +1,87 @@
+<!DOCTYPE html><html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<style>
+		body {
+			font-family: "Lucida Grande", "Arial Unicode MS", "Verdana", sans-serif;
+		}
+
+		.chess-board {
+			cursor: pointer;
+			border: solid 1px #C0C0C0;
+			box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5);
+		}
+			
+		.square {
+			padding: 0px;
+			float: left;
+			display: block;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.lightgrey { background: #FFFFFF; }
+		.darkgrey { background: #D0D0D0; }
+	</style>
+
+	<script type="text/javascript">
+		var cols = new Array("a","b","c","d","e","f","g","h");
+		var ranks = new Array(1, 2, 3, 4, 5, 6, 7, 8);
+		
+		var pieces = new Array();
+		pieces["P"] = "&#9817";
+		pieces["R"] = "&#9814";
+		pieces["N"] = "&#9816";
+		pieces["B"] = "&#9815";
+		pieces["K"] = "&#9812";
+		pieces["Q"] = "&#9813";
+		pieces["p"] = "&#9823";
+		pieces["r"] = "&#9820";
+		pieces["n"] = "&#9822";
+		pieces["b"] = "&#9821";
+		pieces["k"] = "&#9818";
+		pieces["q"] = "&#9819";
+		pieces[" "] = "";
+		
+		function drawChessBoard(size) {
+
+			var d = $('<div/>').addClass("chess-board").css("width", size).css("height", size);
+			var squareSize = size / 8;
+
+			var fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+
+			fen = fen.replace( /\//g , "" );
+			fen = fen.replace( /1/g , " " );
+			fen = fen.replace( /2/g , "  " );
+			fen = fen.replace( /3/g , "   " );
+			fen = fen.replace( /4/g , "    " );
+			fen = fen.replace( /5/g , "     " );
+			fen = fen.replace( /6/g , "      " );
+			fen = fen.replace( /7/g , "       " );
+			fen = fen.replace( /8/g , "        " );
+
+			var key;
+			for( var i = 7 ; i >= 0 ; i-- ) {
+				for( var j = 0 ; j <= 7 ; j++){
+					bgcolor = ( ( i + j ) % 2 == 0 ) ? "darkgrey" : "lightgrey";
+					key = fen[ (7-i)*8+j ];
+
+					var sq = $('<div/>').addClass("square").addClass(bgcolor).html(pieces[ key ]).css("width", squareSize).css("height", squareSize).css("font-size", squareSize-10);
+					d.append(sq);
+				}
+			}
+
+			return d
+		}
+
+		$(function () {
+			$('body').append(drawChessBoard(200))
+		})
+				
+	</script>
+		
+</head>
+
+<body>
+</body>
